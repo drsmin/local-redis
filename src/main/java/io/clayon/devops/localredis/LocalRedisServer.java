@@ -8,8 +8,11 @@ public class LocalRedisServer {
 		
 		int port = 16379;
 		
-		final RedisServer redisServer = new RedisServer(port);
-		
+		final RedisServer redisServer = RedisServer.builder()
+                .port(port)
+                //.redisExecProvider(customRedisExec) //com.github.kstyrc (not com.orange.redis-embedded)
+                .setting("maxmemory 128M") //maxheap 128M
+                .build();
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 				redisServer.stop();

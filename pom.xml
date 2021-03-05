@@ -2,14 +2,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>io.clayon</groupId>
+	<groupId>kr.pe.drs</groupId>
 	<artifactId>local-redis</artifactId>
 	<version>1.0.0</version>
 	<name>Local Redis server</name>
 
 	<properties>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
 	</properties>
 
 	<dependencies>
@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>it.ozimov</groupId>
 			<artifactId>embedded-redis</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3</version>
 		</dependency>
 	</dependencies>
 
@@ -29,6 +29,31 @@
 					<source>${maven.compiler.target}</source>
 					<target>${maven.compiler.source}</target>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>kr.pe.drs.localredis.LocalRedisServer</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<appendAssemblyId>false</appendAssemblyId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
